@@ -1,3 +1,4 @@
+#include "cardwindow.h"
 #include "mainwindow.h"
 #include <QMenuBar>
 #include <QMenu>
@@ -47,8 +48,34 @@ MainWindow::MainWindow(QWidget *parent)
     buttonLayout->addWidget(clearButton);
 
     mainLayout->addLayout(buttonLayout);
+
+    connect(showButton, &QPushButton::clicked, this, &MainWindow::showCardWindow);
+    connect(showAction, &QAction::triggered, this, &MainWindow::showCardWindow);
+    connect(clearButton, &QPushButton::clicked, this, &MainWindow::clearFields);
+    connect(exitAction, &QAction::triggered, this, &QWidget::close);
 }
 
 MainWindow::~MainWindow()
 {
+}
+void MainWindow::showCardWindow()
+{
+    QString lastName = lastNameEdit->text();
+    QString firstName = firstNameEdit->text();
+    int age = ageSpin->value();
+    QString city = cityCombo->currentText();
+
+    CardWindow *card = new CardWindow(lastName, firstName, age, city);
+
+    card->setWindowModality(Qt::ApplicationModal);
+
+    card->show();
+}
+
+void MainWindow::clearFields()
+{
+    lastNameEdit->clear();
+    firstNameEdit->clear();
+    ageSpin->setValue(1);
+    cityCombo->setCurrentIndex(0);
 }
