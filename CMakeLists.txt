@@ -11,6 +11,7 @@ qt_add_executable(QT_3_Mur
     mainwindow.cpp
     mainwindow.h
     mainwindow.ui
+    cardwindow.h cardwindow.cpp
 )
 
 target_link_libraries(QT_3_Mur
